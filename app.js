@@ -1,5 +1,34 @@
 const mongoose = require('mongoose');
 
+// make mongodb collection
+
+const userSchema = mongoose.Schema(
+  {
+    user_email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    user_password: {
+      type: String,
+      required: true,
+    },
+    user_name: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    user_gender: String,
+    user_age: String,
+    user_position: String,
+    user_language: Array,
+  },
+  { versionKey: false },
+);
+
+const User = mongoose.model('users', userSchema);
+
+// connect to mongoose with env variables
 mongoose
   .connect(process.env.MONGO_STRING, {
     useNewUrlParser: true, // 버전 5 이상부터 적용되는 새로운 url parser 사용
