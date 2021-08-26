@@ -1,32 +1,15 @@
+const express = require('express');
 const mongoose = require('mongoose');
+require('dotenv').config();
 
-// make mongodb collection
+const app = express();
+const port = process.env.PORT || 80; 
 
-const userSchema = mongoose.Schema(
-  {
-    user_email: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    user_password: {
-      type: String,
-      required: true,
-    },
-    user_name: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    user_gender: String,
-    user_age: String,
-    user_position: String,
-    user_language: Array,
-  },
-  { versionKey: false },
-);
-
-const User = mongoose.model('users', userSchema);
+app.get('/', (req, res) => {
+  res.status(200).json({
+    message: 'server connected!',
+  });
+});
 
 // connect to mongoose with env variables
 mongoose
@@ -39,3 +22,7 @@ mongoose
   })
   .then(() => console.log(`mongoDB connected`))
   .catch((err) => console.error(err));
+
+app.listen(port, () => {
+  console.log(`server is running on port ${port}`)
+});
