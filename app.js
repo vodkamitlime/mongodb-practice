@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const { getUser } = require('./user-query');
 require('dotenv').config();
 
 const app = express();
@@ -10,6 +11,8 @@ app.get('/', (req, res) => {
     message: 'server connected!',
   });
 });
+
+app.get('/user', getUser);
 
 // connect to mongoose with env variables
 mongoose
